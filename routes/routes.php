@@ -2,6 +2,7 @@
 use Slim\App;
 use App\Controllers\LocalController;
 use App\Controllers\ProductoController;
+use App\Controllers\UsuarioController;
 
 return function (App $app) {
     $app->get('/', function ($request, $response) {
@@ -16,6 +17,10 @@ return function (App $app) {
     });
     //extrae todos los productos de un local, http://localhost:8080/productos?local=id desde get
     $app->get('/productos', [ProductoController::class, 'getByLocal']); 
+
+    $app->group('/usuarios', function ($group) {
+        $group->post('/login', [UsuarioController::class, 'login']); // solicitud por post para inciar sesion en la app
+    });
     
 
 };

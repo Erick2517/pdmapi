@@ -90,3 +90,27 @@ CREATE TABLE Pedidos_Especiales (
     FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido)
 );
 
+
+INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES (NULL, 'Usuario');
+INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES (NULL, 'Administrador');
+INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES (NULL, 'Encargado');
+
+INSERT INTO `ubicaciones`(`nombre_ubicacion`, `descripcion`) values ('Campus Central', 'Ubicación general dentro del campus universitario.');
+INSERT INTO `ubicaciones`(`nombre_ubicacion`, `descripcion`) values ('Facultad de Ingeniería', 'Zona de Ingeniería dentro del campus universitario.');
+
+INSERT INTO `usuarios`(`nombre`, `email`, `password`, `carnet`, `id_rol`, `id_ubicacion`) VALUES ("Administrador Sistema", "admin@ues.edu.sv", sha2('Admin123', 256),"AD00001",2,1);
+INSERT INTO `usuarios`(`nombre`, `email`, `password`, `carnet`, `id_rol`, `id_ubicacion`) VALUES ("Encargado Cafetín","encargado@ues.edu.sv", sha2("Encargado123",256),"EN00001",3,1);
+
+INSERT INTO `locales`(`nombre_local`, `ubicacion`, `descripcion`, `estado`) VALUES ("Cafetín Central", "Plaza central", "Local principal con desayunos, almuerzos y bebidas.", "Activo");
+INSERT INTO `locales`(`nombre_local`, `ubicacion`, `descripcion`, `estado`) VALUES ("Cafetín Ingeniería", "Facultad de Ingeniería", "Local cercano a edificios de aulas y laboratorios.", "Activo");
+INSERT INTO `locales`(`nombre_local`, `ubicacion`, `descripcion`, `estado`) VALUES ("Cafetín Biblioteca", "Biblioteca central", "Punto de venta de refrigerios y bebidas.", "Activo");
+
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Desayuno típico", 2.50, "Disponible", "Desayuno", 20, 1);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Café americano", 0.75, "Disponible", "Bebida", 35, 1);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Empanadas de leche", 1.00, "Disponible", "Antojito", 12, 1);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Sándwich de pollo", 2.25, "Disponible", "Almuerzo", 18, 2);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Jugo natural", 1.00, "Disponible", "Bebida", 25, 2);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Nuegados", 1.25, "Disponible", "Antojito", 10, 2);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Pan dulce", 0.60, "Disponible", "Refrigerio", 30, 3);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Chocolate caliente", 0.90, "Disponible", "Bebida", 20, 3);
+INSERT INTO `productos` (`nombre_producto`,`precio`,`disponibilidad`, `tipo`, `stock`, `id_local`) values ("Tamal de elote", 1.50, "No disponible", "Antojito", 0, 3);
