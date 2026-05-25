@@ -27,6 +27,7 @@ return function (App $app) {
 
     $app->group('/pedidos', function ($group) {
         $group->post('', [PedidoController::class, 'create']); // agrega un usuario a la lista
+        $group->patch('/{id}/estado', [PedidoController::class, 'updateEstado']); // actualiza el estado del pedido
     });
     
 

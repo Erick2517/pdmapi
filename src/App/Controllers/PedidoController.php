@@ -56,4 +56,45 @@ class PedidoController{
             ->withStatus(201); // 201 significa "Creado"
 
     }
+
+    public function updateEstado(Request $request, Response $response, array $params): Response {
+        $id = (int) $params['id'];
+        if (!$this->repo->exist($id)) {
+            $payload = json_encode(['error' => 'El pedido solicitado no existe']);
+            $response->getBody()->write($payload);
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(404); // Not Found
+        }
+        $data = $request->getParsedBody();
+        if (empty($data['estado_pedido'])) 
+        {
+            $payload = json_encode(['error' => 'El campo estado pedido es bligatorio']);
+            $response->getBody()->write($payload);
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(400); // Bad Request
+        }
+
+        $exito = $this->repo->updateEstado($data['estado_pedido'], $id);
+
+        if (!$exito) {
+            $res = json_encode(['error' => 'No se pudo actualizar el estado del pedido']);
+            $response->getBody()->write($res);
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(500); // Internal Server Error
+        }
+
+        // Respuesta exitosa
+        $res = json_encode([
+            'msg' => 'Estado de pedido actualizado con éxito',
+            'estado' => $data['estado_pedido']
+        ]);
+        $response->getBody()->write($res);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200); // 201 significa "Creado"
+
+    }
 }
