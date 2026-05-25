@@ -1,6 +1,7 @@
 <?php
 use Slim\App;
 use App\Controllers\LocalController;
+use App\Controllers\PagoController;
 use App\Controllers\PedidoController;
 use App\Controllers\ProductoController;
 use App\Controllers\UsuarioController;
@@ -29,6 +30,9 @@ return function (App $app) {
         $group->post('', [PedidoController::class, 'create']); // agrega un usuario a la lista
         $group->patch('/{id}/estado', [PedidoController::class, 'updateEstado']); // actualiza el estado del pedido
     });
-    
+
+    $app->group('/pagos', function ($group) {
+        $group->post('', [PagoController::class, 'create']); // agrega un nuevo pago a la lista
+    });
 
 };
