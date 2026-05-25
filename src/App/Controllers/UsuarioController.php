@@ -37,6 +37,51 @@ class UsuarioController {
         }
         
     }
+
+    public function create(Request $request, Response $response): Response {
+
+        $data = $request->getParsedBody();
+        if (empty($data['nombre']) || empty($data['email']) || empty($data['password']) 
+            || empty($data['carnet']) || empty($data['id_rol']) || empty($data['activo'])) 
+        {
+            $payload = json_encode(['error' => 'Los campos nombre, email, password, carnet, id_rol y estado son obligatorios']);
+            $response->getBody()->write($payload);
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(400); // Bad Request
+        }
+        $user = new Usuario($data['nombre'], $data['email'], $data['password'], 
+                $data['carnet'], $data['id_rol'], $data['activo'], $data['id_ubicacion']??null);
+
+        $exito = $this->repo->create($user);
+
+        if (!$exito) {
+            $res = json_encode(['error' => 'No se pudo guardar el Usuario']);
+            $response->getBody()->write($res);
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(500); // Internal Server Error
+        }
+
+        // Respuesta exitosa
+        $res = json_encode([
+            'msg' => 'Usuario creado con éxito',
+            'Usuario' => [
+                'nombre' => $user->nombre,
+                'email' => $user->email,
+                'password' => $user->password,
+                'carnet' => $user->carnet,
+                'id_rol' => $user->id_rol,
+                'activo' => $user->activo,
+                'id_ubicacion' => $user->id_ubicacion
+            ]
+        ]);
+        $response->getBody()->write($res);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(201); // 201 significa "Creado"
+
+    }
 /*
     public function create(Request $request, Response $response): Response {
 

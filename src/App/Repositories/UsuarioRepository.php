@@ -36,4 +36,21 @@ class UsuarioRepository {
             return $user;
         }
     }
+
+    public function create(Usuario $data) {
+        $pdo = $this->conn->connection();
+        $sql = "INSERT INTO usuarios(nombre, email, password, carnet, id_rol, activo, id_ubicacion)" .
+                " VALUES (:nombre, :email, sha2(:password , 256), :carnet , :id_rol , :activo , :id_ubicacion)";
+        $stmt = $pdo->prepare($sql);
+        $res = $stmt->execute([
+            'nombre' => $data->nombre,
+            'email' => $data->email,
+            'password' => $data->password,
+            'carnet' => $data->carnet,
+            'id_rol' => $data->id_rol,
+            'activo' => $data->activo,
+            'id_ubicacion' => $data->id_ubicacion
+        ]);
+        return $res;
+    }
 }

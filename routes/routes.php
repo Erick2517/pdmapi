@@ -19,6 +19,7 @@ return function (App $app) {
     $app->get('/productos', [ProductoController::class, 'getByLocal']); 
 
     $app->group('/usuarios', function ($group) {
+        $group->post('', [UsuarioController::class, 'create']); // agrega un usuario a la lista
         $group->post('/login', [UsuarioController::class, 'login']); // solicitud por post para inciar sesion en la app
     });
     
