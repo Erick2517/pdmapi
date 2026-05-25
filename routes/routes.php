@@ -14,25 +14,25 @@ return function (App $app) {
         return $response->withHeader('Content-Type', 'application/json');
     });
     $app->group('/locales', function ($group) {
-        $group->get('', [LocalController::class, 'getAll']); // extrae todos los locales de la bd http://localhost/locales
-        $group->post('', [LocalController::class, 'create']);// agrega un local a la lista http://localhost/locales  (desde formulario con post)
+        $group->get('', [LocalController::class, 'getAll']); // extrae todos los locales de la bd http://localhost:8080/locales
+        $group->post('', [LocalController::class, 'create']);// agrega un local a la lista http://localhost:8080/locales  (desde formulario con post)
         
     });
     //extrae todos los productos de un local, http://localhost:8080/productos?local=id desde get
     $app->get('/productos', [ProductoController::class, 'getByLocal']); 
 
     $app->group('/usuarios', function ($group) {
-        $group->post('', [UsuarioController::class, 'create']); // agrega un usuario a la lista
-        $group->post('/login', [UsuarioController::class, 'login']); // solicitud por post para inciar sesion en la app
+        $group->post('', [UsuarioController::class, 'create']); // agrega un usuario a la lista http://localhost:8080/usuarios
+        $group->post('/login', [UsuarioController::class, 'login']); // solicitud por post para inciar sesion en la app http://localhost:8080/usuarios/login
     });
 
     $app->group('/pedidos', function ($group) {
-        $group->post('', [PedidoController::class, 'create']); // agrega un usuario a la lista
-        $group->patch('/{id}/estado', [PedidoController::class, 'updateEstado']); // actualiza el estado del pedido
+        $group->post('', [PedidoController::class, 'create']); // agrega un usuario a la lista http://localhost:8080/pedidos
+        $group->patch('/{id}/estado', [PedidoController::class, 'updateEstado']); // actualiza el estado del pedido http://localhost:8080/pedidos/3/estado
     });
 
     $app->group('/pagos', function ($group) {
-        $group->post('', [PagoController::class, 'create']); // agrega un nuevo pago a la lista
+        $group->post('', [PagoController::class, 'create']); // agrega un nuevo pago a la lista http://localhost:8080/pagos
     });
 
 };
