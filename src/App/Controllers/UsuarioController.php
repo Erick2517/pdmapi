@@ -82,26 +82,5 @@ class UsuarioController {
             ->withStatus(201); // 201 significa "Creado"
 
     }
-/*
-    public function create(Request $request, Response $response): Response {
 
-        $data = $request->getParsedBody();
-        if (empty($data['name']) || empty($data['size'])) {
-            $payload = json_encode(['error' => 'Los campos name y size son obligatorios']);
-            $response->getBody()->write($payload);
-            return $response
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus(400); // Bad Request
-        }
-        $producto = new Product($data['name'], $data['size'], $data['description']??null);
-
-        $exito = $this->repo->create($producto);
-
-        if (!$exito) {
-            $res = json_encode(['error' => 'No se pudo guardar el producto']);
-            $response->getBody()->write($res);
-            return $response
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus(500); // Internal Server Error
-        }*/
 }

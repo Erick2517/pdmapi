@@ -1,8 +1,10 @@
 <?php
 use Slim\App;
 use App\Controllers\LocalController;
+use App\Controllers\PedidoController;
 use App\Controllers\ProductoController;
 use App\Controllers\UsuarioController;
+
 
 return function (App $app) {
     $app->get('/', function ($request, $response) {
@@ -21,6 +23,10 @@ return function (App $app) {
     $app->group('/usuarios', function ($group) {
         $group->post('', [UsuarioController::class, 'create']); // agrega un usuario a la lista
         $group->post('/login', [UsuarioController::class, 'login']); // solicitud por post para inciar sesion en la app
+    });
+
+    $app->group('/pedidos', function ($group) {
+        $group->post('', [PedidoController::class, 'create']); // agrega un usuario a la lista
     });
     
 
